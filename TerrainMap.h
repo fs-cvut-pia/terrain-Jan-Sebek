@@ -9,9 +9,12 @@
 
 struct Point {
     Point() {};
-    Point(int i, int j) : x(i), y(j) {};
+    Point(int i, int j, double k=0, int l =-1, int m =-1) : x(i), y(j), r(k), xp(l), yp(m) {};
     int x;
     int y;
+    int xp;
+    int yp;
+    double r;
     constexpr static int nx_max = 10000;
     Point& operator= (double a) { x = a; y = a; return *this; };
     bool operator!= (Point const& v) const { return !(operator== (v)); };
@@ -19,6 +22,7 @@ struct Point {
     Point operator+ (Point const& v) const { return Point(x+v.x,y+v.y); };
     Point operator- (Point const& v) const { return Point(x-v.x,y-v.y); };
     bool operator<  (Point const& v) const { return x + y*nx_max; }; // This is to provide a simple ordering, the operator doesn't have a geometrical meaning
+    bool operator>  (Point const& v) const { return r > v.r; };
     double length() const { return std::sqrt(x*x + y*y); }
 };
 

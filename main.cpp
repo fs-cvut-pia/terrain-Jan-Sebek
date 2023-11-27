@@ -1,21 +1,29 @@
+﻿// ukol_hledani.cpp : Tento soubor obsahuje funkci main. Provádění programu se tam zahajuje a ukončuje.
+//
+
 #include "TerrainMap.h"
 #include "Path.h"
+#include "Letadlo.h"
+#include "Lod.h"
+#include "Silnice.h"
+#include "Siljekt.h"
+#include "Vlak.h"
 #include <vector>
 #include <iostream>
 #include <string>
 
 // Include files of your path classes will need to be added here
 
-Point read_coordinates(int argc, char *argv[], int i_option) {
+Point read_coordinates(int argc, char* argv[], int i_option) {
     Point p;
 
-    if (argc > i_option+1) { p.x = std::atoi(argv[i_option]); p.y = std::atoi(argv[i_option + 1]); }
+    if (argc > i_option + 1) { p.x = std::atoi(argv[i_option]); p.y = std::atoi(argv[i_option + 1]); }
     else throw std::runtime_error("Coordinates incorrectly specified!");
 
     return p;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     const int nx = 256;
     const int ny = 256;
 
@@ -26,14 +34,18 @@ int main(int argc, char *argv[]) {
     if (argc > 1) terrain_filename = argv[1];
     else { std::cout << "No terrain file specified!" << std::endl; return 0; }
 
-    TerrainMap m(nx,ny,terrain_filename);
+    TerrainMap m(nx, ny, terrain_filename);
 
     // Load the coordinates of the start and end points
 
-    Point start = read_coordinates(argc,argv,2);
-    Point finish = read_coordinates(argc,argv,4);
+    Point start = read_coordinates(argc, argv, 2);
+    Point finish = read_coordinates(argc, argv, 4);
 
-    std::vector<Path*> paths = { //new YourPath(m,"MyPathName",start,finish), ...
+    std::vector<Path*> paths = { new Letadlo(m,"Letadlo",start,finish),
+        new Lod(m,"Lod",start,finish),
+        new Silnice(m,"Silnice",start,finish),
+        new Siljekt(m,"Siljekt",start,finish),
+        new Vlak(m,"Vlak",start,finish)
         // Here add the list of dynamically created classes with path finding algorithms
     };
 
@@ -49,3 +61,14 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+
+// Spuštění programu: Ctrl+F5 nebo nabídka Ladit > Spustit bez ladění
+// Ladění programu: F5 nebo nabídka Ladit > Spustit ladění
+
+// Tipy pro zahájení práce:
+//   1. K přidání nebo správě souborů použijte okno Průzkumník řešení.
+//   2. Pro připojení ke správě zdrojového kódu použijte okno Team Explorer.
+//   3. K zobrazení výstupu sestavení a dalších zpráv použijte okno Výstup.
+//   4. K zobrazení chyb použijte okno Seznam chyb.
+//   5. Pokud chcete vytvořit nové soubory kódu, přejděte na Projekt > Přidat novou položku. Pokud chcete přidat do projektu existující soubory kódu, přejděte na Projekt > Přidat existující položku.
+//   6. Pokud budete chtít v budoucnu znovu otevřít tento projekt, přejděte na Soubor > Otevřít > Projekt a vyberte příslušný soubor .sln.
