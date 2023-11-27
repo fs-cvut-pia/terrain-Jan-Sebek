@@ -48,7 +48,7 @@ bool Siljekt::find()
 						float c = 1;
 						if (map.alt(n) < 0) { c = 4; }
 						visited(n.x, n.y) = 1;
-						n.r = tmp.r + dir.length()*c - (tmp - finish).length() + (n - finish).length();
+						n.r = tmp.r + 100*dir.length()*c - (tmp - finish).length() + (n - finish).length();
 						ways(n.x, n.y) = tmp;
 						to_search.push(n);
 					}

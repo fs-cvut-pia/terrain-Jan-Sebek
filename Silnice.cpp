@@ -46,7 +46,7 @@ bool Silnice::find()
 					if (visited(n.x, n.y) == 0)
 					{
 						visited(n.x, n.y) = 1;
-						n.r = tmp.r + dir.length() - (tmp - finish).length() + (n - finish).length();
+						n.r = tmp.r + 100*dir.length() - (tmp - finish).length() + (n - finish).length();
 						ways(n.x, n.y) = tmp;
 						to_search.push(n);
 					}
